@@ -68,6 +68,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   static final _audioPlayer = AudioPlayer();
 
+  static const dataN = 50;// グラフの幅
+
   @override
   Widget build(BuildContext context) {
     if (accelerometer.y > threshold1 && !isDown) {
@@ -101,7 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
           Expanded(
             child: LineChart(
               LineChartData(
-                minX: 0, maxX: 300, minY: -15, maxY: 15,
+                minX: 0, maxX: dataN.toDouble(), minY: -15, maxY: 15,
                 extraLinesData: ExtraLinesData(
                   horizontalLines: [
                     HorizontalLine(y: threshold1, color: Colors.blue.shade100),
@@ -319,7 +321,7 @@ class _MyHomePageState extends State<MyHomePage> {
           setState(() {
             accelerometer.setXYZ(event.x, event.y, event.z);
             accelerometerHistory.addFirst(accelerometer.copyWith());
-            if (accelerometerHistory.length > 300) {
+            if (accelerometerHistory.length > dataN) {
               accelerometerHistory.removeLast();
             }
           });
